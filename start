@@ -1,0 +1,17 @@
+#!/usr/bin/env ruby
+
+system 'xcode-select --install'
+
+unless system('/usr/local/bin/brew -v')
+  puts 'Installing homebrew...'
+  system %{ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"}
+end
+
+unless system('/usr/local/bin/ansible --version')
+  puts 'Installing ansible...'
+  system 'brew install ansible'
+end
+
+system 'git clone https://github.com/ananthkamath/setup-my-mac.git /tmp/setup-my-mac'
+
+system 'cd /tmp/setup-my-mac && ansible-playbook setup.yml -K -vvvv'

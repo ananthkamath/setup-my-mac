@@ -1,0 +1,39 @@
+---
+
+- name: Macbook Setup
+  hosts: local
+  become_method: sudo
+
+  tasks:
+
+  - name: Install dev utilities
+    homebrew:
+      name: ['vim', 'git', 'fzf', 'the_silver_searcher', 'zsh', 'z','rbenv','tfenv','node']
+
+  - name: Install required software
+    homebrew_cask:
+      name: ['homebrew/cask-versions/docker-edge', 'homebrew/cask-versions/firefox-developer-edition', 'iterm2', 'postman', 'spotify', 'homebrew/cask-versions/sublime-text-dev', 'visual-studio-code']
+
+  - name: Change user shell to zsh
+    user: name={{ ansible_user_id }} shell=/bin/zsh
+    become: true
+
+  - name: Install oh-my-zsh
+    shell: curl -L http://install.ohmyz.sh | sh creates=~/.oh-my-zsh
+    args:
+      warn: no
+
+  - name: Initialize z on shell init
+    lineinfile: dest=~/.zshrc line=". `brew --prefix`/etc/profile.d/z.sh"
+
+  - name: Setup sample gitconfig
+    copy: src=file/.gitconfig dest={{ ansible_user_dir }}/.gitconfig
+
+  - name: Copy global gitignore file
+    copy: src=file/.gitignore_global dest={{ ansible_user_dir }}/.gitignore_global
+
+  - name: Copy git commit message sample
+    copy: src=file/.gitmessage dest={{ ansible_user_dir }}/.gitmessage
+
+  - name: Setup ssh config file
+    copy: src=file/sshconfig dest={{ ansible_user_dir }}/.ssh/config
