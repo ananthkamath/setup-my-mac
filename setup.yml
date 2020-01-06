@@ -12,7 +12,7 @@
 
   - name: Install required software
     homebrew_cask:
-      name: ['homebrew/cask-versions/docker-edge', 'homebrew/cask-versions/firefox-developer-edition', 'iterm2', 'postman', 'spotify', 'homebrew/cask-versions/sublime-text-dev', 'visual-studio-code']
+      name: ['homebrew/cask-versions/docker-edge', 'homebrew/cask-versions/firefox-developer-edition', 'iterm2', 'postman', 'slack', 'spotify', 'homebrew/cask-versions/sublime-text-dev', 'visual-studio-code']
 
   - name: Change user shell to zsh
     user: name={{ ansible_user_id }} shell=/bin/zsh

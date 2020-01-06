@@ -46,6 +46,7 @@ ansible-playbook -K setup.yml
 - Firefox Developer Edition
 - Iterm2
 - Postman
+- Slack
 - Spotify
 - Sublime Text 3
 - Vscode
